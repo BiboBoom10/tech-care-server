@@ -7,6 +7,8 @@ const cors = require('cors');
 const mainRoute = require("./routes/main");
 const HttpError = require("./models/http-error");
 
+const { sendEmail } = require('./util/email');
+
 dotenv.config();
 
 const app = express();
@@ -24,6 +26,18 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   res.status(error.code || 500);
   res.json({ message: error.message || "An unknown error has occured", content: error.content || null, });
+});
+
+app.post('/send-email', async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    await sendEmail(name, email, message, 'bibokim6@gmail.com');
+    res.status(200).send('Email sent successfully!');
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 mongoose.set("strictQuery", false).connect(process.env.MONGO_URL).then(() => {
