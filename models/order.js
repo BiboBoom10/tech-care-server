@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
 	{
+		user: { type: Object, required: true },
 		deviceType: { type: String, required: true },
 		brand: { type: String, required: true },
 		model: { type: String, required: true },
