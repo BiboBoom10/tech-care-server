@@ -5,13 +5,12 @@ const Schema = mongoose.Schema;
 const orderSchema = new Schema(
 	{
 		user: { type: Object, required: true },
-		deviceType: { type: String, required: true },
+		recepient: { type: Object, required: true },
 		brand: { type: String, required: true },
 		model: { type: String, required: true },
 		issueDescription: { type: String, required: true },
 		additionalInstructions: { type: String },
 		deliveryOptions: { type: String, required: true },
-		phoneNumber: { type: String, required: true },
 		serviceOrProduct: { type: String, required: true },
 	},
 	{ timestamps: true }
