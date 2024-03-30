@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get('/', mainController.main);
 
+router.get('/technicians', mainController.getTechnicians);
+
 router.use('/auth', authRouter);
 
 router.use('/notify', notificationsRouter);
