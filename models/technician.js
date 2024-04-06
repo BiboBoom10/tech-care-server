@@ -11,6 +11,7 @@ const technicianSchema = new Schema({
     location: { type: Object, content: Schema.Types.Mixed },
     address: { type: String, content: Schema.Types.Mixed },
     profile: { type: String, content: Schema.Types.Mixed },
+    description: { type: String, content: Schema.Types.Mixed },
     services: [String]
 }, { timestamps: true });
 

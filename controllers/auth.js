@@ -54,12 +54,12 @@ exports.profile = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
     try {
-        const { profile, address, longitude, latitude, services } = req.body;
+        const { profile, address, longitude, latitude, services, description } = req.body;
         const location = {
             type: 'Point',
             coordinates: [Number(longitude), Number(latitude)]
         };
-        if (req.isTechnician) await Technician.updateOne({ _id: req.id }, { $set: { location, address, services, profile } });
+        if (req.isTechnician) await Technician.updateOne({ _id: req.id }, { $set: { location, address, services, profile, description } });
         res.status(200).json({ message: 'Profile details have been updated' });
     } catch (err) {
         console.log(err);
