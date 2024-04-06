@@ -51,3 +51,18 @@ exports.profile = async (req, res, next) => {
         return next(new HttpError('Unable to get profile details'));
     }
 }
+
+exports.updateProfile = async (req, res, next) => {
+    try {
+        const { profile, address, longitude, latitude, services } = req.body;
+        const location = {
+            type: 'Point',
+            coordinates: [Number(longitude), Number(latitude)]
+        };
+        if (req.isTechnician) await Technician.updateOne({ _id: req.id }, { $set: { location, address, services, profile } });
+        res.status(200).json({ message: 'Profile details have been updated' });
+    } catch (err) {
+        console.log(err);
+        return next(new HttpError('Unable to update profile details'))
+    }
+}

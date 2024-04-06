@@ -9,6 +9,8 @@ authRouter.post('/register', authController.register);
 
 authRouter.post('/login', authController.login);
 
+authRouter.patch('/update-profile', accessToken, authController.updateProfile);
+
 authRouter.get('/profile', accessToken, authController.profile);
 
 authRouter.post('/orders', accessToken, orderController.createOrder);
