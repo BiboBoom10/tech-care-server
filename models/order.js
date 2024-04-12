@@ -12,6 +12,7 @@ const orderSchema = new Schema(
 		additionalInstructions: { type: String },
 		deliveryOptions: { type: String, required: true },
 		serviceOrProduct: { type: String, required: true },
+		status: { type: String, enum: ["Pending", "Accepted", "Rejected"], default: 'Pending' }
 	},
 	{ timestamps: true }
 );

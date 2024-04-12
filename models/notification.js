@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 
 const notificationSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, required: true },
+    user: { type: Schema.Types.ObjectId, required: true },
     orderId: { type: Schema.Types.ObjectId, required: true },
-    messageType: { type: String, enum: ['accept', 'reject'], required: true },
+    message: { type: String, required: true },
+    messageType: { type: String, enum: ['Accepted', 'Rejected', 'Pending'], default: 'Pending' },
     rejectionReason: { type: String }, // Only applicable if messageType is 'reject'
     isRead: { type: Boolean, default: false },
   },

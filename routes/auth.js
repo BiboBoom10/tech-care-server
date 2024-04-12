@@ -11,6 +11,10 @@ authRouter.post('/login', authController.login);
 
 authRouter.patch('/update-profile', accessToken, authController.updateProfile);
 
+authRouter.patch('/update-order-status', accessToken, orderController.updateOrderStatus);
+
+authRouter.get('/notifications', accessToken, orderController.getNotifications);
+
 authRouter.get('/profile', accessToken, authController.profile);
 
 authRouter.post('/orders', accessToken, orderController.createOrder);
