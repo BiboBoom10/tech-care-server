@@ -108,8 +108,8 @@ const getAllOrders = async (req, res) => {
         return res.status(404).json({ message: "Order not found" });
       }
       const userNotification = await Notification.create({ 
-        user: updatedOrder.recepient._id,
-        userModel: 'Technician',
+        user: updatedOrder.user._id,
+        userModel: 'User',
         orderId: orderId,
         messageType: status,
         message: status === 'Accepted' ? 
@@ -117,9 +117,9 @@ const getAllOrders = async (req, res) => {
         `Your order has been rejected due to the reason that follows: ${rejectionReason}`,
       });
       const techNotification = await Notification.create({ 
-        user: updatedOrder?.user?._id,
+        user: updatedOrder?.recepient?._id,
         orderId: orderId,
-        userModel: 'User',
+        userModel: 'Technician',
         messageType: status,
         message: status === 'Accepted' ? 
         'You have accepted the order' : 
