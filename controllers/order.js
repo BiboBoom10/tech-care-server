@@ -40,7 +40,7 @@ const createOrder = async (req, res) => {
       const techNotification = await Notification.create({ 
         user: updatedOrder?.recepient?._id,
         userModel: 'Technician',
-        orderId: newOrder._id,
+        orderId,
         message: `You have received a ${rating} rating on an order`,
       });
       res.status(201).json(updatedOrder?._doc);
