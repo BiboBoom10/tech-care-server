@@ -27,6 +27,29 @@ const createOrder = async (req, res) => {
     }
   };
 
+  const rateOrder = async (req, res) => {
+    try {
+      const { orderId, rating } = req.body;
+      const updatedOrder = await Order.findByIdAndUpdate(orderId, { rating }, { returnDocument: 'after' });
+      const userNotification = await Notification.create({ 
+        user: req.user?._id,
+        userModel: 'User',
+        orderId,
+        message: 'You have rated the order',
+      });
+      const techNotification = await Notification.create({ 
+        user: updatedOrder?.recepient?._id,
+        userModel: 'Technician',
+        orderId: newOrder._id,
+        message: `You have received a ${rating} rating on an order`,
+      });
+      res.status(201).json(updatedOrder?._doc);
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ error: error.message });
+    }
+  };
+
 // Get all orders
 const getAllOrders = async (req, res) => {
     try {
@@ -130,4 +153,5 @@ module.exports = {
     deleteOrderById,
     updateOrderStatus,
     getNotifications,
+    rateOrder,
   };

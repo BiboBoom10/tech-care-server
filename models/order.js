@@ -13,7 +13,7 @@ const orderSchema = new Schema(
 		deliveryOptions: { type: String, required: true },
 		serviceOrProduct: { type: String, required: true },
 		status: { type: String, enum: ["Pending", "Accepted", "Rejected"], default: 'Pending' },
-		rating: { type: Number, default: 0 }
+		rating: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );

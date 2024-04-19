@@ -27,4 +27,6 @@ authRouter.put('/orders/:orderId', orderController.updateOrderById);
 
 authRouter.delete('/orders/:orderId', orderController.deleteOrderById);
 
+authRouter.patch('/rate-order', accessToken, orderController.rateOrder)
+
 module.exports = authRouter;
