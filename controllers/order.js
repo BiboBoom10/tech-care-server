@@ -9,12 +9,14 @@ const createOrder = async (req, res) => {
       const newOrder = new Order({ ...req.body, user });
       const savedOrder = await newOrder.save();
       const userNotification = await Notification.create({ 
-        user: userId, 
+        user: userId,
+        userModel: 'User',
         orderId: newOrder._id,
         message: 'You have created a new order',
       });
       const techNotification = await Notification.create({ 
         user: req?.body?.recepient?._id,
+        userModel: 'Technician',
         orderId: newOrder._id,
         message: 'A new order can been created in your favor. Please accept or reject the order',
       });
@@ -83,7 +85,8 @@ const getAllOrders = async (req, res) => {
         return res.status(404).json({ message: "Order not found" });
       }
       const userNotification = await Notification.create({ 
-        user: updatedOrder.user._id, 
+        user: updatedOrder.user._id,
+        userModel: 'User',
         orderId: orderId,
         messageType: status,
         message: status === 'Accepted' ? 
@@ -93,6 +96,7 @@ const getAllOrders = async (req, res) => {
       const techNotification = await Notification.create({ 
         user: updatedOrder?.recepient?._id,
         orderId: orderId,
+        userModel: 'Technician',
         messageType: status,
         message: status === 'Accepted' ? 
         'You have accepted the order' : 
@@ -106,7 +110,10 @@ const getAllOrders = async (req, res) => {
 
   const getNotifications = async (req, res) => {
     try {
-      const notifications = await Notification.find({ user: req.id }).sort({ createdAt: -1 });
+      const notifications = await Notification.find({ user: req.id })
+      .sort({ createdAt: -1 })
+      .populate('user', '-password')
+      .populate('orderId')
       res.status(200).json({ message: "Notifications", notifications });
     } catch (error) {
       res.status(500).json({ error: error.message });
