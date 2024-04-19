@@ -19,7 +19,7 @@ authRouter.get('/profile', accessToken, authController.profile);
 
 authRouter.post('/orders', accessToken, orderController.createOrder);
 
-authRouter.get('/orders', orderController.getAllOrders);
+authRouter.get('/orders', accessToken, orderController.getAllOrders);
 
 authRouter.get('/orders/:orderId', orderController.getOrderById);
 
