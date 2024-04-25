@@ -1,6 +1,6 @@
 const HttpError = require('../models/http-error');
 const Technician = require('../models/technician');
-const Order = required('../models/order');
+const Order = require('../models/order');
 
 exports.main = async (req, res, next) => {
     try {
